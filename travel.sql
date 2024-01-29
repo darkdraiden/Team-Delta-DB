@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 24, 2024 at 01:40 PM
+-- Generation Time: Jan 29, 2024 at 08:36 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,18 +32,24 @@ CREATE TABLE `booking` (
   `booking_price` int(11) NOT NULL,
   `travel_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `member_count` int(11) NOT NULL DEFAULT 1
+  `member_count` int(11) NOT NULL DEFAULT 1,
+  `booking_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`booking_id`, `booking_price`, `travel_id`, `user_id`, `member_count`) VALUES
-(10, 24000, 13, 12, 2),
-(11, 21000, 17, 10, 3),
-(12, 20000, 12, 15, 4),
-(13, 10000, 12, 11, 2);
+INSERT INTO `booking` (`booking_id`, `booking_price`, `travel_id`, `user_id`, `member_count`, `booking_date`) VALUES
+(19, 20000, 12, 21, 4, '2024-01-30'),
+(20, 24000, 16, 22, 3, '2024-01-30'),
+(21, 21000, 17, 22, 21, '2024-02-05'),
+(25, 12000, 13, 22, 1, '2024-02-01'),
+(26, 24000, 14, 22, 3, '2024-01-31'),
+(27, 12000, 13, 21, 1, '2024-01-30'),
+(28, 8000, 16, 21, 1, '2024-01-31'),
+(29, 20000, 12, 23, 4, '2024-04-17'),
+(32, 48000, 13, 23, 4, '2024-04-12');
 
 -- --------------------------------------------------------
 
@@ -93,13 +99,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `email`, `phonenumber`, `name`, `password`, `role`) VALUES
-(9, 'yashraj@gmail.com', '123456780', 'Yashraj Singh', 'y@123', 'ADMIN'),
-(10, 'pj@gmail.com', '123456780', 'Priyanshi Jain', 'jain@123', 'ADMIN'),
-(11, 'vivek@gmail.com', '123456780', 'Vivek Kumar', 'v@123', 'ADMIN'),
-(12, 'kohli@gmail.com', '123456780', 'Virat Kohli', 'v@123', NULL),
-(13, 'sachin@gmail.com', '123456780', 'Sachin Tendulkar', 's@123', NULL),
-(14, 'ashish@gmail.com', '123456780', 'Ashish Chanchalani', 'a@123', NULL),
-(15, 'test@gmail.com', '123456780', 'Test', '12345', NULL);
+(21, 'alpha@gmail.com', '7459834795', 'alpha', 'pbkdf2_sha256$720000$1lQB1gxUTTieFwpy1ShlM9$ldCIfVNZyohbSp/iUpGjmGQ9rLqPCJu54WlFDRnpZpo=', NULL),
+(22, 'yashraj@gmail.com', '987653456', 'Yashraj Singh', 'pbkdf2_sha256$720000$BxNiChuUd9C6zXIYeY3FkK$fAM9ohybr4CJPEDlRsIaHcxyb2DaQRPL7Cw7HnnztBM=', 'ADMIN'),
+(23, 'abcd@gmail.com', '12345', 'abcd', 'pbkdf2_sha256$720000$v0rShhBcbt11DR53SEuAeb$SRVBm7mcGFx39lS0nTG40m5RkHGvSkX2r/sIhdcVC3s=', 'ADMIN');
 
 --
 -- Indexes for dumped tables
@@ -110,6 +112,7 @@ INSERT INTO `user` (`user_id`, `email`, `phonenumber`, `name`, `password`, `role
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`booking_id`),
+  ADD UNIQUE KEY `travel_id` (`travel_id`,`user_id`),
   ADD KEY `FKdxt6l0m3hxp1frtqkkjxd1isj` (`user_id`),
   ADD KEY `FKetlnww9bc1vpw3yljagn75a4u` (`travel_id`);
 
@@ -134,19 +137,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `travel_plan`
 --
 ALTER TABLE `travel_plan`
-  MODIFY `travel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `travel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
